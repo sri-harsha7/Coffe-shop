@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript</title>
+   
+
+</head>
+<body>
+    <div class="city_div" style="display: inline;"> 
+        <h2 style="display: inline;" id="City_name"></h2>
+   
+    <p id="output" style="display: inline;">Default Text</p></div>
+   <div>
+ <input id ="city" onkeyup="city_name(this.value)">
+ <button onclick="show_text()">Submit</button></div>
+ <script type="text/javascript">
+    document.getElementById("output").style.color="red";
+    document.getElementById("output").style.fontSize="20px";
+
+    function city_name(text){
+        document.getElementById("City_name").innerHTML = text;
+    }
+
+    function show_text(){
+       city = document.getElementById("city").value;
+      
+       httpRequest = new XMLHttpRequest();
+       url= "https://api.weatherbit.io/v2.0/current?city="+city+ "&key=c0ad3d04f9f64461a42ba25c44aacb66";
+       httpRequest.open("GET", url);
+       httpRequest.send();
+
+       httpRequest.onreadystatechange = function()
+       {
+         if(this.readyState == 4 && this.status ==200){
+            user_data = JSON.parse(this.responseText);
+            document.getElementById("output").innerHTML=" = "+user_data.data[0].temp
+         }
+       }
+    }
+ </script>
+
+
+</body>
+
+ <!-- <p id="output">Default Text</p>
+    <input  id="user_number">
+    <button onclick ="update_user()">Submit</button>
+
+    <script type="text/javascript">
+        function update_user(){
+            update_number = document.getElementById("user_number").value
+     
+            httpRequest = new XMLHttpRequest();
+            httpRequest.open("GET","https://reqres.in/api/user/"+update_number);
+            httpRequest.send();
+
+            httpRequest.onReadyStateChange = function(){
+                if(this.readyState == 4 && this.status== 200)
+                {
+                    user_data = JSON.parse( this.responseText);
+                    document.getElementById("output").innerHTML = user_data.data.first_name;
+                }
+            }
+          
+        }
+    </script>
+
+    <p id ="output" onclick="change_paragraph()" onmouseout="change_paragraph()">Default Text</p>
+    <input type="text" onkeyup="change_onkey(this.value)">
+    <script>
+        function change_paragraph(){
+            document.getElementById("output").innerHTML="Changed text"
+        }
+
+        function change_onkey(text){
+            document.getElementById("output").innerHTML=text
+        }
+    </script> -->
